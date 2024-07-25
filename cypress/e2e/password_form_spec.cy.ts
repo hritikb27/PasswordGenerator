@@ -16,7 +16,7 @@ describe('PasswordForm', () => {
 
   it('should update the password input when clicking "Generate Password"', () => {
     // Change password length value
-    cy.get('[data-test-id="password-length-input"]').clear().type('12');
+    cy.get('[data-test-id="password-length-input"]').clear().type('2');
 
     // Check the checkboxes
     cy.get('[data-state="unchecked"]').each(($el) => {
@@ -35,6 +35,8 @@ describe('PasswordForm', () => {
     cy.get('[data-state="unchecked"]').each(($el) => {
       cy.wrap($el).click();
     });
+
+    cy.get('[data-test-id="password-length-input"]').clear().type('2');
 
     // Click the "Generate Password" button
     cy.get('[data-test-id="generate-password-btn"]').contains('Generate Password').click();
