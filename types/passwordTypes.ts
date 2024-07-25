@@ -40,6 +40,7 @@ export type GeneratePassword = {
 
 // Define the enum for password strength
 export enum PasswordStrength {
+    'Too weak',
     'Weak',
     'Medium',
     'Strong',
