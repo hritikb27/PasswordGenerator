@@ -6,13 +6,11 @@ import {
 
 // Define the initial state
 export const initialState: PasswordState = {
-  length: 8,
   includeUppercase: true,
   includeLowercase: false,
   includeNumbers: false,
   includeSpecial: true,
   easyRead: false,
-  password: "",
 };
 
 // Reducer function for password generator state management
@@ -21,8 +19,6 @@ export function passwordReducer(
   action: PasswordAction,
 ): PasswordState {
   switch (action.type) {
-    case "SET_LENGTH":
-      return { ...state, length: action.payload };
     case "includeUppercase":
       return { ...state, includeUppercase: !state.includeUppercase };
     case "includeLowercase":
@@ -33,10 +29,6 @@ export function passwordReducer(
       return { ...state, includeSpecial: !state.includeSpecial };
     case "easyRead":
       return { ...state, easyRead: !state.easyRead };
-    case "GENERATE_PASSWORD":
-      return { ...state, password: action.payload };
-    case "SET_PASSWORD":
-      return { ...state, password: action.payload };
     default:
       return state;
   }

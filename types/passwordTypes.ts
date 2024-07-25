@@ -1,24 +1,19 @@
 // Define the state type for the password generator
 export interface PasswordState {
-    length: number;
     includeUppercase: boolean;
     includeLowercase: boolean;
     includeNumbers: boolean;
     includeSpecial: boolean;
     easyRead: boolean;
-    password: string;
 }
 
 // Define the action types for the reducer
 export type PasswordAction =
-    | { type: 'SET_LENGTH'; payload: number }
     | { type: 'includeUppercase' }
     | { type: 'includeLowercase' }
     | { type: 'includeNumbers' }
     | { type: 'includeSpecial' }
     | { type: 'easyRead' }
-    | { type: 'GENERATE_PASSWORD'; payload: string }
-    | { type: 'SET_PASSWORD'; payload: string };
 
 export type CheckBoxSelectorState = {
     includeUppercase: true,
@@ -34,5 +29,18 @@ export type CheckBoxItem = {
     selector: keyof CheckBoxSelectorState;
 };
 
-// Define the type for password strength
-export type PasswordStrength = 'Weak' | 'Medium' | 'Strong';
+export type GeneratePassword = {
+    includeUppercase: boolean,
+    includeLowercase: boolean,
+    includeNumbers: boolean,
+    includeSpecial: boolean,
+    easyRead: boolean,
+    length?: number
+}
+
+// Define the enum for password strength
+export enum PasswordStrength {
+    'Weak',
+    'Medium',
+    'Strong',
+}
