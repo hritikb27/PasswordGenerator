@@ -137,6 +137,7 @@ export function PasswordForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-12 w-full sm:w-[40%] lg:w-[30%] 2xl:w-[20%]"
       >
+        {/* Password value input and score viewer */}
         <FormField
           control={form.control}
           name="password"
@@ -163,6 +164,8 @@ export function PasswordForm() {
             </FormItem>
           )}
         />
+
+        {/* Password length input */}
         <div className="flex flex-col gap-2">
           <div className="w-full flex gap-2">
             <label>Password Length:</label>
@@ -182,6 +185,7 @@ export function PasswordForm() {
             />
           </div>
 
+          {/* All the options checkboxes */}
           {checkBoxItems.map((item) => {
             return (
               <div key={item.selector} className="flex items-center space-x-2">
