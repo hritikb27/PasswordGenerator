@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> & {
-    dataTestId?: string;
+    datatestid?: string;
   }
 >(({ className, ...props }, ref) => (
   <CheckboxPrimitive.Root
@@ -23,7 +23,7 @@ const Checkbox = React.forwardRef<
     <CheckboxPrimitive.Indicator
       className={cn("flex items-center justify-center text-current")}
     >
-      <Check data-test-id={props.dataTestId} className="h-4 w-4" />
+      <Check data-test-id={props.datatestid} className="h-4 w-4" />
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>
 ));

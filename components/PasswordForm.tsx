@@ -202,7 +202,7 @@ export function PasswordForm() {
             return (
               <div key={item.selector} className="flex items-center space-x-2">
                 <Checkbox
-                  dataTestId={item.selector}
+                  datatestid={item.selector}
                   name={item.selector}
                   checked={state[item.selector]}
                   onCheckedChange={() => handleCheckboxChange(item.selector)}
