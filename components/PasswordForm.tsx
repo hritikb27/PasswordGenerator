@@ -2,7 +2,6 @@
 
 import React, {
     useReducer,
-    useMemo,
     useState,
     useEffect,
     useCallback,
@@ -15,13 +14,11 @@ import {
     initialState,
     checkBoxItems,
 } from "../lib/passwordReducer";
-import { passwordStrength } from "check-password-strength";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -55,7 +52,7 @@ export function PasswordForm() {
     }, []);
 
     // Submit handler for the form
-    const onSubmit: SubmitHandler<FormSchema> = (values) => {
+    const onSubmit: SubmitHandler<FormSchema> = () => {
         handleGeneratePassword()
     };
 
