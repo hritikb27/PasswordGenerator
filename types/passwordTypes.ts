@@ -33,3 +33,6 @@ export type CheckBoxItem = {
     name: string;
     selector: keyof CheckBoxSelectorState;
 };
+
+// Define the type for password strength
+export type PasswordStrength = 'Weak' | 'Medium' | 'Strong';

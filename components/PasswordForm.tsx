@@ -15,6 +15,7 @@ import {
   initialState,
   checkBoxItems,
 } from "../lib/passwordReducer";
+import { passwordStrength } from "check-password-strength";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,7 +30,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "./ui/checkbox";
 import CopyButton from "./ui/copyIcon";
-import { CheckBoxSelectorState } from "@/types/passwordTypes";
+import { CheckBoxSelectorState, PasswordStrength } from "@/types/passwordTypes";
+import mapStrengthToPasswordStrength from "@/lib/parsePasswordStrength";
 
 export function PasswordForm() {
   // Use form hook for form validation and submission
@@ -42,7 +44,7 @@ export function PasswordForm() {
 
   // Use reducer for password generator state
   const [state, dispatch] = useReducer(passwordReducer, initialState);
-  const [score, setScore] = useState<number>(0);
+  const [score, setScore] = useState<PasswordStrength>("Weak");
 
   // Generate password on initial render
   useEffect(() => {
@@ -89,7 +91,8 @@ export function PasswordForm() {
     dispatch({ type: "GENERATE_PASSWORD", payload: generatedPassword });
     form.setValue("password", generatedPassword);
     const scoreGen = generateScore();
-    setScore(scoreGen);
+    const parsedValue = mapStrengthToPasswordStrength(scoreGen);
+    setScore(parsedValue);
   }, [state, form, characterPool]);
 
   // Submit handler for the form
@@ -98,26 +101,9 @@ export function PasswordForm() {
   };
 
   // Generate password score based on how many options have been used
-  const generateScore = () => {
-    const trueCount = [
-      state.includeUppercase,
-      state.includeLowercase,
-      state.includeNumbers,
-      state.includeSpecial,
-    ].filter(Boolean).length;
-    switch (trueCount) {
-      case 4:
-        return 100;
-      case 3:
-        return 63;
-      case 1:
-        return 33;
-      case 2:
-        return 33;
-      default:
-        return 0;
-    }
-  };
+  const generateScore = useCallback(() => {
+    return passwordStrength(state.password).value;
+  }, [state.password]);
 
   // Handler to ensure at least one checkbox remains checked
   const handleCheckboxChange = (type: keyof CheckBoxSelectorState) => {
@@ -164,16 +150,14 @@ export function PasswordForm() {
                 <CopyButton passwordValue={state.password} />
               </div>
               {score && (
-                <FormDescription>
+                <div className="text-sm text-[#64748b]">
                   <Progress
-                    value={score}
-                    className={`${score < 63 ? "bg-red-500" : score < 99 ? "bg-yellow-500" : "bg-green-500"}`}
+                    value={score == "Weak" ? 33 : score == "Medium" ? 63 : 100}
+                    className={`${score == "Weak" ? "bg-red-500" : score == "Medium" ? "bg-yellow-500" : "bg-green-500"}`}
                     data-test-id="password-score-progress"
                   />
-                  <p data-test-id="password-score">
-                    {score < 63 ? "Weak" : score < 99 ? "Medium" : "Strong"}
-                  </p>
-                </FormDescription>
+                  <span data-test-id="password-score">{score}</span>
+                </div>
               )}
               <FormMessage />
             </FormItem>
