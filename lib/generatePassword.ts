@@ -27,7 +27,7 @@ const characterPool = ({
 
 // Generate password score based on how many options have been used
 const generateScore = (password: string) => {
-  return passwordStrength(password).value;
+    return passwordStrength(password).value as PasswordStrength;
 };
 
 // Function to generate a password based on state
@@ -40,7 +40,7 @@ export const generatePassword = ({
   length,
 }: GeneratePassword): {
   password: string;
-  score: keyof typeof PasswordStrength;
+  score: PasswordStrength;
 } => {
   const pool = characterPool({
     includeUppercase,
@@ -51,8 +51,8 @@ export const generatePassword = ({
   });
   if (pool === "") {
     return {
-      password: "",
-      score: "Weak",
+    password: "",
+    score: PasswordStrength.TOOWEAK,
     };
   }
 
@@ -66,6 +66,6 @@ export const generatePassword = ({
   const scoreGen = generateScore(generatedPassword);
   return {
     password: generatedPassword,
-    score: scoreGen as keyof typeof PasswordStrength,
+    score: scoreGen,
   };
 };

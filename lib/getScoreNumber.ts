@@ -1,11 +1,13 @@
+import { PasswordStrength } from "@/types/passwordTypes";
+
 export const getScoreNumber = (score: string): number => {
-  return score == "Weak" || score == "Too weak"
+    return (score == PasswordStrength.WEAK || score == PasswordStrength.TOOWEAK)
     ? 33
-    : score == "Medium"
+        : score == PasswordStrength.MEDIUM
       ? 63
       : 100;
 };
 
 export const getScoreBasedClassName = (score: string): string => {
-  return `${score == "Weak" || score == "Too weak" ? "bg-red-500" : score == "Medium" ? "bg-yellow-500" : "bg-green-500"}`;
+    return `${score == PasswordStrength.WEAK || score == PasswordStrength.TOOWEAK ? "bg-red-500" : score == PasswordStrength.MEDIUM ? "bg-yellow-500" : score == PasswordStrength.STRONG && "bg-green-500"}`;
 };

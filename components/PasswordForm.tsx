@@ -43,7 +43,7 @@ export function PasswordForm() {
   const [state, dispatch] = useReducer(passwordReducer, initialState);
   const [passwordValue, setPasswordValue] = useState<string>("");
   const [passwordLength, setPasswordLength] = useState<number>(6);
-  const [score, setScore] = useState<keyof typeof PasswordStrength>("Weak");
+    const [score, setScore] = useState<PasswordStrength>(PasswordStrength.WEAK);
 
   // Generate password on initial render
   useEffect(() => {
